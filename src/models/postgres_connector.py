@@ -36,10 +36,12 @@ class PostgresConnector:
         for entry in os.scandir(self.csv_folder):
             if not entry.name.endswith('.zip') and not entry.name.startswith('.') and not entry.is_dir():
                 table_name = entry.name.rsplit('.', 1)[1]
+                if 'SIMPLES' in entry.name:
+                    table_name = 'simples'
                 print(f'[+] {datetime.now()} - Loading {entry.name} into {table_name_mapping[table_name]} table')
                 with open(self.csv_folder + entry.name, 'r', encoding='utf-8') as f:
                     cursor.copy_expert(f"COPY {table_name_mapping[table_name]} FROM STDIN WITH (FORMAT CSV, HEADER "
-                                       f"false, DELIMITER ';')", f)
+                                   f"false, DELIMITER ';')", f)
                 conn.commit()
         print(f'{(time.monotonic() - start_code) / 60} minutes')
         cursor.close()

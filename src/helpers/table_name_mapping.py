@@ -1,6 +1,6 @@
 table_name_mapping = {
     'EMPRECSV': 'empresas',
-    'MUNICCSV': 'municipios',
+    'MUNICCSV': 'municipio',
     'SOCIOCSV': 'socios_original',
     'QUALSCSV': 'qualificacao_socio',
     'PAISCSV': 'pais',
@@ -8,5 +8,5 @@ table_name_mapping = {
     'NATJUCSV': 'natureza_juridica',
     'CNAECSV': 'cnae',
     'ESTABELE': 'estabelecimento',
-    'D21217': 'simples'
+    'simples': 'simples'
 }

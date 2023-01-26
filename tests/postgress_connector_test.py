@@ -1,14 +1,26 @@
+import configparser
 from unittest import TestCase
 from src.models.postgres_connector import PostgresConnector
+
+config_file = configparser.ConfigParser()
+config_file.read('../config.ini')
+
+base_url = config_file['DOWNLOAD']['base_url']
+download_path = config_file['DOWNLOAD']['download_path']
+
+postgres_host = config_file['POSTGRES']['postgres_host']
+postgres_database = config_file['POSTGRES']['postgres_database']
+postgres_user = config_file['POSTGRES']['postgres_user']
+postgres_password = config_file['POSTGRES']['postgres_password']
 
 
 class TestPostgressConnector(TestCase):
 
     def setUp(self):
-        database = 'CNPJ'
-        host = '127.0.0.1'
-        user = 'postgres'
-        password = 'ALTBsal312512'
+        database = postgres_database
+        host = postgres_host
+        user = postgres_user
+        password = postgres_password
         self.postgres = PostgresConnector(host, database, user, password)
 
     def test_should_pass_when_fetching_the_database_connection_name(self):
