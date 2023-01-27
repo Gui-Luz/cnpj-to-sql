@@ -3,6 +3,7 @@ from datetime import datetime
 import psycopg2
 from src.helpers.sql_statements import create_tables_statements
 from src.helpers.table_name_mapping import table_name_mapping
+from src.helpers.summary_statement import summary_statement
 
 
 class PostgresConnector:
@@ -28,7 +29,7 @@ class PostgresConnector:
         conn.close()
 
     def load_postgres(self):
-        print(f'[+] {datetime.now()} - STARTING SQL LOADING')
+        print(f'[+] {datetime.now()} STARTING SQL LOADING')
         conn = self.connect_to_database()
         cursor = conn.cursor()
         for entry in os.scandir(self.csv_folder):
@@ -43,6 +44,18 @@ class PostgresConnector:
                 conn.commit()
         cursor.close()
         conn.close()
+
+    def get_database_summary(self):
+        print(f'[+] {datetime.now()} DATABASE SUMMARY:')
+        conn = self.connect_to_database()
+        cursor = conn.cursor()
+        cursor.execute(summary_statement)
+        summary = cursor.fetchall()
+        for table in summary:
+            schema = table[0]
+            table_name = table[1]
+            rows = table[2]
+            print(f'[+] {schema}.{table_name} | {int(rows)} rows')
 
     @property
     def host(self):
