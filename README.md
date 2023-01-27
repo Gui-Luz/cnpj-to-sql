@@ -1,4 +1,4 @@
-<html><code><span class="ascii" style="color: white; background: black;
+<html><code><span class="ascii" style="
 display:inline-block;
 letter-spacing:0;
 line-height:1.5;
