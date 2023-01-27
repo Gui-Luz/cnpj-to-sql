@@ -1,3 +1,3 @@
-![Logo](./logo/ascii.png)
+![Logo](logo/ascii.png)
 
-#CNPJ-TO-SQL
+### CNPJ-TO-SQL
