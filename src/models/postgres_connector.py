@@ -1,5 +1,4 @@
 import os
-import time
 from datetime import datetime
 import psycopg2
 from src.helpers.sql_statements import create_tables_statements
@@ -30,7 +29,6 @@ class PostgresConnector:
 
     def load_postgres(self):
         print(f'[+] {datetime.now()} - STARTING SQL LOADING')
-        start_code = time.monotonic()
         conn = self.connect_to_database()
         cursor = conn.cursor()
         for entry in os.scandir(self.csv_folder):
@@ -43,10 +41,8 @@ class PostgresConnector:
                     cursor.copy_expert(f"COPY {table_name_mapping[table_name]} FROM STDIN WITH (FORMAT CSV, HEADER "
                                    f"false, DELIMITER ';')", f)
                 conn.commit()
-        print(f'{(time.monotonic() - start_code) / 60} minutes')
         cursor.close()
         conn.close()
-
 
     @property
     def host(self):

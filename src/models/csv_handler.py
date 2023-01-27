@@ -1,4 +1,3 @@
-import time
 import os
 from datetime import datetime
 import zipfile
@@ -21,19 +20,15 @@ class CsvHandler:
 
     def encoding_converter(self):
         print(f'[+] {datetime.now()} STARTING CONVERSION FROM LATIN-1 TO UTF-8')
-        start_code = time.monotonic()
         for entry in os.scandir(self.csv_path):
             if not entry.name.endswith('.zip') and not entry.name.startswith('.') and not entry.is_dir():
                 EncodingConverter.convert(self.csv_path + entry.name)
-        print(f'{(time.monotonic() - start_code) / 60} minutes')
 
     def remove_null_bytes(self):
         print(f'[+] {datetime.now()} REMOVING NULL BYTES')
-        start_code = time.monotonic()
         for entry in os.scandir(self.csv_path):
             if not entry.name.endswith('.zip') and not entry.name.startswith('.') and not entry.is_dir():
                 NullBytesRemover.remove(self.csv_path + entry.name)
-        print(f'{(time.monotonic() - start_code) / 60} minutes')
 
     @property
     def zip_path(self):

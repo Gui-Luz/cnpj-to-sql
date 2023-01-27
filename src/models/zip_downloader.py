@@ -1,6 +1,4 @@
-import time
 import os
-import zipfile
 from datetime import datetime
 from bs4 import BeautifulSoup
 import requests
@@ -16,14 +14,14 @@ class ZipDownloader:
         self._zip_objects = dict()
 
     def check_if_base_url_is_valid(self):
-        print(f'[+] {datetime.now()} Checking base url')
+        print(f'[+] {datetime.now()} CHECKING BASE URL')
         r = requests.get(self._base_url)
         if r.status_code == 200:
             return True
 
     def get_zip_objects(self):
         if self.check_if_base_url_is_valid():
-            print(f'[+] {datetime.now()} Generating zip objects')
+            print(f'[+] {datetime.now()} GENERATING ZIP OBJECTS')
             r = requests.get(self.base_url)
             soup = BeautifulSoup(r.text, 'html.parser')
             for link in soup.find_all('a'):
@@ -36,7 +34,7 @@ class ZipDownloader:
 
     def get_files_length(self):
         if bool(self.zip_objects):
-            print(f'[+] {datetime.now()} - Getting files length')
+            print(f'[+] {datetime.now()} GETTING FILES LENGTH')
             for key in self.zip_objects.keys():
                 url = self.zip_objects[key]['url']
                 r = requests.head(url)
@@ -46,7 +44,6 @@ class ZipDownloader:
     def download_zip_files(self):
         if self.zip_objects:
             print(f'[+] {datetime.now()} STARTING DOWNLOAD')
-            start_code = time.monotonic()
             files_for_download = list()
             for key in self.zip_objects.keys():
                 if ('download_length' in self.zip_objects[key]) and \
@@ -61,14 +58,12 @@ class ZipDownloader:
                 print(f"[+] {datetime.now()} - {len(files_for_download) + 1} - {url}")
                 output_path = self._output_path + file_name
                 Downloader.download(url, output_path)
-            print(f'{(time.monotonic() - start_code) / 60} minutes')
 
     def get_downloaded_files_length(self):
         print(f'[+] {datetime.now()} Checking downloaded files length')
         for entry in os.scandir(self.output_path):
             if entry.is_file() and entry.name.endswith('.zip'):
                 self.zip_objects[entry.name]['download_length'] = entry.stat().st_size
-
 
     @property
     def valid(self):
