@@ -3,6 +3,7 @@ from datetime import datetime
 from bs4 import BeautifulSoup
 import requests
 from src.models.downloader import Downloader
+from src.errors.invalid_base_url import InvalidUrl
 
 
 class ZipDownloader:
@@ -13,14 +14,16 @@ class ZipDownloader:
         self._csv_path = csv_path
         self._zip_objects = dict()
 
-    def check_if_base_url_is_valid(self):
+    def _check_if_base_url_is_valid(self):
         print(f'[+] {datetime.now()} CHECKING BASE URL')
         r = requests.get(self._base_url)
         if r.status_code == 200:
             return True
+        else:
+            raise InvalidUrl(f'Invalid base url: {self._base_url}')
 
     def get_zip_objects(self):
-        if self.check_if_base_url_is_valid():
+        if self._check_if_base_url_is_valid():
             print(f'[+] {datetime.now()} GENERATING ZIP OBJECTS')
             r = requests.get(self._base_url)
             soup = BeautifulSoup(r.text, 'html.parser')
