@@ -12,28 +12,20 @@ class CsvHandler:
         self._csv_path = csv_path
 
     def unzip_files(self):
-        for entry in os.scandir(self.zip_path):
+        for entry in os.scandir(self._zip_path):
             if entry.name.endswith('.zip') and not entry.is_dir():
                 print(f'[+] {datetime.now()} Unzipping ' + entry.name)
-                with zipfile.ZipFile(self.zip_path + entry.name, 'r') as zip_ref:
-                    zip_ref.extractall(self.csv_path)
+                with zipfile.ZipFile(self._zip_path + entry.name, 'r') as zip_ref:
+                    zip_ref.extractall(self._csv_path)
 
     def encoding_converter(self):
         print(f'[+] {datetime.now()} STARTING CONVERSION FROM LATIN-1 TO UTF-8')
-        for entry in os.scandir(self.csv_path):
+        for entry in os.scandir(self._csv_path):
             if not entry.name.endswith('.zip') and not entry.name.startswith('.') and not entry.is_dir():
-                EncodingConverter.convert(self.csv_path + entry.name)
+                EncodingConverter.convert(self._csv_path + entry.name)
 
     def remove_null_bytes(self):
         print(f'[+] {datetime.now()} REMOVING NULL BYTES')
-        for entry in os.scandir(self.csv_path):
+        for entry in os.scandir(self._csv_path):
             if not entry.name.endswith('.zip') and not entry.name.startswith('.') and not entry.is_dir():
-                NullBytesRemover.remove(self.csv_path + entry.name)
-
-    @property
-    def zip_path(self):
-        return self._zip_path
-
-    @property
-    def csv_path(self):
-        return self._csv_path
+                NullBytesRemover.remove(self._csv_path + entry.name)

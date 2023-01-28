@@ -16,7 +16,7 @@ class PostgresConnector:
         self._csv_folder = csv_folder
 
     def connect_to_database(self):
-        conn = psycopg2.connect(database=self.database, host=self.host, user=self.user, password=self.password)
+        conn = psycopg2.connect(database=self._database, host=self._host, user=self._user, password=self._password)
         return conn
 
     def create_tables(self):
@@ -32,15 +32,15 @@ class PostgresConnector:
         print(f'[+] {datetime.now()} STARTING SQL LOADING')
         conn = self.connect_to_database()
         cursor = conn.cursor()
-        for entry in os.scandir(self.csv_folder):
+        for entry in os.scandir(self._csv_folder):
             if not entry.name.endswith('.zip') and not entry.name.startswith('.') and not entry.is_dir():
                 table_name = entry.name.rsplit('.', 1)[1]
                 if 'SIMPLES' in entry.name:
                     table_name = 'simples'
                 print(f'[+] {datetime.now()} - Loading {entry.name} into {table_name_mapping[table_name]} table')
-                with open(self.csv_folder + entry.name, 'r', encoding='utf-8') as f:
+                with open(self._csv_folder + entry.name, 'r', encoding='utf-8') as f:
                     cursor.copy_expert(f"COPY {table_name_mapping[table_name]} FROM STDIN WITH (FORMAT CSV, HEADER "
-                                   f"false, DELIMITER ';')", f)
+                                       f"false, DELIMITER ';')", f)
                 conn.commit()
         cursor.close()
         conn.close()
@@ -56,23 +56,3 @@ class PostgresConnector:
             table_name = table[1]
             rows = table[2]
             print(f'[+] {schema}.{table_name} | {int(rows)} rows')
-
-    @property
-    def host(self):
-        return self._host
-
-    @property
-    def database(self):
-        return self._database
-
-    @property
-    def user(self):
-        return self._user
-
-    @property
-    def password(self):
-        return self._password
-
-    @property
-    def csv_folder(self):
-        return self._csv_folder
