@@ -3,7 +3,7 @@ from datetime import datetime
 from bs4 import BeautifulSoup
 import requests
 from src.models.downloader import Downloader
-from src.errors.invalid_base_url import InvalidUrl
+from src.errors.invalid_base_url import InvalidUrl, EmptyZipObjects
 
 
 class ZipDownloader:
@@ -43,6 +43,8 @@ class ZipDownloader:
                 r = requests.head(url)
                 h = r.headers
                 self._zip_objects[key]['length'] = int(h['Content-Length'])
+        else:
+            raise EmptyZipObjects("You did not call the 'get_zip_objects' method before calling this method.")
 
     def download_zip_files(self):
         if self._zip_objects:
