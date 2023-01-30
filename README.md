@@ -2,9 +2,9 @@
 
 Uma ferramenta para auxiliar o download da base de dados do CNPJ e inseri-la em uma instância Postgres.
 
-### Instalação
+### Como usar
 
-1. Clone do repositório.
+1. Clone o repositório.
 ```bash
 git clone https://github.com/Gui-Luz/cnpj-to-sql.git
 ```
