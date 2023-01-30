@@ -6,9 +6,9 @@ from src.models.postgres_connector import PostgresConnector
 config_file = configparser.ConfigParser()
 config_file.read('./config.ini')
 
-base_url = config_file['DOWNLOAD']['base_url']
-download_path = config_file['DOWNLOAD']['zip_path']
-csv_path = config_file['DOWNLOAD']['csv_path']
+base_url = 'http://200.152.38.155/CNPJ/'
+zip_path = './cnpj-zip/'
+csv_path = './cnpj-csv/'
 
 postgres_host = config_file['POSTGRES']['postgres_host']
 postgres_database = config_file['POSTGRES']['postgres_database']
@@ -21,13 +21,13 @@ if __name__ == '__main__':
         art = f.read()
     print(art)
 
-    zd = ZipDownloader(base_url, download_path, csv_path)
+    zd = ZipDownloader(base_url, zip_path, csv_path)
     zd.get_zip_objects()
     zd.get_files_length()
     zd.get_downloaded_files_length()
     zd.download_zip_files()
 
-    ch = CsvHandler(download_path, csv_path)
+    ch = CsvHandler(zip_path, csv_path)
     ch.unzip_files()
     ch.encoding_converter()
     ch.remove_null_bytes()
