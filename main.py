@@ -25,6 +25,7 @@ if __name__ == '__main__':
     ch = CsvHandler(zip_path, csv_path)
     pc = PostgresConnector(postgres_host, postgres_database, postgres_user, postgres_password, csv_path)
 
+    zd.check_if_base_url_is_valid()
     pc.connect_to_database()
 
     zd.get_zip_objects()

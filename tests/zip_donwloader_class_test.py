@@ -17,7 +17,7 @@ class TestCnpjToSql(TestCase):
         self.cnpj = ZipDownloader(base_url, output_path)
 
     def test_should_return_true_when_trying_to_request_base_url(self):
-        self.cnpj._check_if_base_url_is_valid()
+        self.cnpj.check_if_base_url_is_valid()
         self.assertTrue(self.cnpj.valid)
 
     def test_should_return_list_when_getting_zip_files_objects_from_base_url(self):
