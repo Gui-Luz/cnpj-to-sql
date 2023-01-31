@@ -5,8 +5,9 @@ from src.models.postgres_connector import PostgresConnector
 config_file = configparser.ConfigParser()
 config_file.read('../config.ini')
 
-base_url = config_file['DOWNLOAD']['base_url']
-download_path = config_file['DOWNLOAD']['download_path']
+base_url = 'http://200.152.38.155/CNPJ/'
+zip_path = './cnpj-zip/'
+csv_path = './cnpj-csv/'
 
 postgres_host = config_file['POSTGRES']['postgres_host']
 postgres_database = config_file['POSTGRES']['postgres_database']
@@ -21,7 +22,7 @@ class TestPostgressConnector(TestCase):
         host = postgres_host
         user = postgres_user
         password = postgres_password
-        self.postgres = PostgresConnector(host, database, user, password)
+        self.postgres = PostgresConnector(host, database, user, password, csv_path)
 
     def test_should_pass_when_fetching_the_database_connection_name(self):
         conn = self.postgres.connect_to_database()

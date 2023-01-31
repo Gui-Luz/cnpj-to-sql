@@ -3,7 +3,7 @@ from datetime import datetime
 from bs4 import BeautifulSoup
 import requests
 from src.models.downloader import Downloader
-from src.errors.invalid_base_url import InvalidUrl, EmptyZipObjects
+from src.errors.errors import InvalidUrl, EmptyZipObjects
 
 
 class ZipDownloader:

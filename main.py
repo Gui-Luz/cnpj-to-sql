@@ -22,16 +22,19 @@ if __name__ == '__main__':
     print(art)
 
     zd = ZipDownloader(base_url, zip_path, csv_path)
+    ch = CsvHandler(zip_path, csv_path)
+    pc = PostgresConnector(postgres_host, postgres_database, postgres_user, postgres_password, csv_path)
+
+    pc.connect_to_database()
+
     zd.get_zip_objects()
     zd.get_files_length()
     zd.get_downloaded_files_length()
     zd.download_zip_files()
 
-    ch = CsvHandler(zip_path, csv_path)
     ch.unzip_files()
     ch.encoding_converter()
     ch.remove_null_bytes()
 
-    pc = PostgresConnector(postgres_host, postgres_database, postgres_user, postgres_password, csv_path)
     pc.create_tables()
     pc.load_postgres()

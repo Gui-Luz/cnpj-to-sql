@@ -4,3 +4,7 @@ class InvalidUrl(Exception):
 
 class EmptyZipObjects(Exception):
     pass
+
+
+class PostgresConnectionError(Exception):
+    pass

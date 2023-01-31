@@ -4,6 +4,7 @@ import psycopg2
 from src.helpers.sql_statements import create_tables_statements
 from src.helpers.table_name_mapping import table_name_mapping
 from src.helpers.summary_statement import summary_statement
+from src.errors.errors import PostgresConnectionError
 
 
 class PostgresConnector:
@@ -16,8 +17,11 @@ class PostgresConnector:
         self._csv_folder = csv_folder
 
     def connect_to_database(self):
-        conn = psycopg2.connect(database=self._database, host=self._host, user=self._user, password=self._password)
-        return conn
+        try:
+            conn = psycopg2.connect(database=self._database, host=self._host, user=self._user, password=self._password)
+            return conn
+        except Exception as e:
+            raise PostgresConnectionError(f'Could not connect to postgres database: {e}')
 
     def create_tables(self):
         statements = [s.strip() for s in create_tables_statements.split(';')]

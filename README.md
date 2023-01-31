@@ -20,7 +20,15 @@ postgres_password = <password>
 ```bash
 make build
 ```
+ou
+```bash
+docker build -t cnpj-to-sql .
+```
 4. Rode o container.
 ```bash
 make run
+```
+ou
+```bash
+docker run --name CnpjToSql cnpj-to-sql
 ```
