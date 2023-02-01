@@ -6,8 +6,8 @@ config_file = configparser.ConfigParser()
 config_file.read('../config.ini')
 
 base_url = 'http://200.152.38.155/CNPJ/'
-zip_path = './cnpj-zip/'
-csv_path = './cnpj-csv/'
+zip_path = './.cnpj-zip/'
+csv_path = './.cnpj-csv/'
 
 postgres_host = config_file['POSTGRES']['postgres_host']
 postgres_database = config_file['POSTGRES']['postgres_database']

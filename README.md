@@ -16,19 +16,7 @@ postgres_database = <base de dados>
 postgres_user = <nome de usuário>
 postgres_password = <password>
 ```
-3. Construa a imagem docker.
+3. Use o comando docker-compose para subir o container
 ```bash
-make build
-```
-ou
-```bash
-docker build -t cnpj-to-sql .
-```
-4. Rode o container.
-```bash
-make run
-```
-ou
-```bash
-docker run --name CnpjToSql cnpj-to-sql
+docker-compose up
 ```

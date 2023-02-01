@@ -3,6 +3,7 @@ from datetime import datetime
 import zipfile
 from src.models.encoding_converter import EncodingConverter
 from src.models.null_bytes_remover import NullBytesRemover
+from src.errors.errors import BadZipError
 
 
 class CsvHandler:
@@ -13,10 +14,13 @@ class CsvHandler:
 
     def unzip_files(self):
         for entry in os.scandir(self._zip_path):
-            if entry.name.endswith('.zip') and not entry.is_dir():
-                print(f'[+] {datetime.now()} Unzipping ' + entry.name)
-                with zipfile.ZipFile(self._zip_path + entry.name, 'r') as zip_ref:
-                    zip_ref.extractall(self._csv_path)
+            try:
+                if entry.name.endswith('.zip') and not entry.is_dir():
+                    print(f'[+] {datetime.now()} Unzipping ' + entry.name)
+                    with zipfile.ZipFile(self._zip_path + entry.name, 'r') as zip_ref:
+                        zip_ref.extractall(self._csv_path)
+            except Exception as e:
+                raise BadZipError(f'O Arquivo zip {self._zip_path + entry.nam} parece corrompido. Faça o download manual, insira-o na pasta cnpj-zip e rode o container novamente.')
 
     def encoding_converter(self):
         print(f'[+] {datetime.now()} STARTING CONVERSION FROM LATIN-1 TO UTF-8')

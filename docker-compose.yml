@@ -1,0 +1,9 @@
+version: '3'
+services:
+  cnpj-to-sql:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./.cnpj-zip/:/app/.cnpj-zip/
+      - ./.cnpj-csv/:/app/.cnpj-csv/

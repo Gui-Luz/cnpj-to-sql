@@ -8,3 +8,7 @@ class EmptyZipObjects(Exception):
 
 class PostgresConnectionError(Exception):
     pass
+
+
+class BadZipError(Exception):
+    pass

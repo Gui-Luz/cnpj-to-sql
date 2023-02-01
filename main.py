@@ -7,8 +7,8 @@ config_file = configparser.ConfigParser()
 config_file.read('./config.ini')
 
 base_url = 'http://200.152.38.155/CNPJ/'
-zip_path = './cnpj-zip/'
-csv_path = './cnpj-csv/'
+zip_path = '.cnpj-zip/'
+csv_path = '.cnpj-csv/'
 
 postgres_host = config_file['POSTGRES']['postgres_host']
 postgres_database = config_file['POSTGRES']['postgres_database']
@@ -18,8 +18,8 @@ postgres_password = config_file['POSTGRES']['postgres_password']
 if __name__ == '__main__':
 
     with open("./logo/logo.ascii", "r") as f:
-        art = f.read()
-    print(art)
+        logo = f.read()
+    print(logo)
 
     zd = ZipDownloader(base_url, zip_path, csv_path)
     ch = CsvHandler(zip_path, csv_path)

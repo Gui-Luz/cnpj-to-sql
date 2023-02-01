@@ -15,7 +15,7 @@ class ZipDownloader:
         self._zip_objects = dict()
 
     def check_if_base_url_is_valid(self):
-        print(f'[+] {datetime.now()} CHECKING BASE URL')
+        print(f'[+] {datetime.now()} CHECKING BASE URL {self._base_url}')
         r = requests.get(self._base_url)
         if r.status_code == 200:
             return True
