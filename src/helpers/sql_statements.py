@@ -29,7 +29,7 @@ create_tables_statements = '''
     ,data_inicio_atividades VARCHAR(8)
     ,cnae_fiscal VARCHAR(7)
     ,cnae_fiscal_secundaria VARCHAR(1000)
-    ,tipo_logradouro VARCHAR(20)
+    ,tipo_logradouro VARCHAR(100)
     ,logradouro VARCHAR(200)
     ,numero VARCHAR(10)
     ,complemento VARCHAR(200)

@@ -12,4 +12,4 @@ RUN pip install -r requirements.txt
 RUN mkdir cnpj-zip
 RUN mkdir cnpj-csv
 
-ENTRYPOINT ["python", "main.py"]
+ENTRYPOINT ["python", "-u", "main.py"]

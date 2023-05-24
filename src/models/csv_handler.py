@@ -20,7 +20,7 @@ class CsvHandler:
                     with zipfile.ZipFile(self._zip_path + entry.name, 'r') as zip_ref:
                         zip_ref.extractall(self._csv_path)
             except Exception as e:
-                raise BadZipError(f'O Arquivo zip {self._zip_path + entry.nam} parece corrompido. Faça o download manual, insira-o na pasta cnpj-zip e rode o container novamente.')
+                raise BadZipError(f'O Arquivo zip {self._zip_path + entry.name} parece corrompido. Faça o download manual, insira-o na pasta cnpj-zip e rode o container novamente.')
 
     def encoding_converter(self):
         print(f'[+] {datetime.now()} STARTING CONVERSION FROM LATIN-1 TO UTF-8')
