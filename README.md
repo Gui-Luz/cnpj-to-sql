@@ -1,6 +1,6 @@
 # CNPJ-TO-SQL
 
-Uma ferramenta para auxiliar o download da base de dados do CNPJ e inseri-la em uma instância Postgres.
+Uma ferramenta para auxiliar o download da base de dados do CNPJ e inserí-la em uma instância Postgres.
 
 ### Como usar
 

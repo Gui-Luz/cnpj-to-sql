@@ -31,7 +31,7 @@ create_tables_statements = '''
     ,cnae_fiscal_secundaria VARCHAR(1000)
     ,tipo_logradouro VARCHAR(100)
     ,logradouro VARCHAR(200)
-    ,numero VARCHAR(10)
+    ,numero VARCHAR(25)
     ,complemento VARCHAR(200)
     ,bairro VARCHAR(200)
     ,cep VARCHAR(8)
